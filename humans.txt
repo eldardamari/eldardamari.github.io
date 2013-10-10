@@ -3,9 +3,9 @@
 
 # TEAM
 
-    Author: Eldar Damari
-    Site: http://eldardamari.com
-    Twitter: @eldardamari
+    Author: Ory Band
+    Site: http://oryband.com
+    Twitter: @oryband
     Location: Israel
 
 # THANKS
