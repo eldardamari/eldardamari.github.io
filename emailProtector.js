@@ -80,8 +80,8 @@ function exponentialModulo(base,exponent,y) {
     return answer;
 }
 
-// Remove the comments below to improve spam resistance! 
+/*// Remove the comments below to improve spam resistance! 
 // email addresses: 
 
 if(!addresses) var addresses = new Array();
-addresses.push("3811 3803 246 3359 857 3191 1926 814 1594 1306 3191 2193 3359 2581 2193 3359 246 3359 2581 857 2675 1133 246 3359 857 3191 2116 559 814 246");  // [0] eldardamari - at - gmail.com
+addresses.push("3811 3803 246 3359 857 3191 1926 814 1594 1306 3191 2193 3359 2581 2193 3359 246 3359 2581 857 2675 1133 246 3359 857 3191 2116 559 814 246");  // [0] eldardamari - at - gmail.com*/
