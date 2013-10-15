@@ -10,11 +10,91 @@ layout: base
   <p> I spent 4 years in a big organization, designing, implemnting and investigating security threats, becoming an ISO (Information Security Officer).</p>
 
   <!--<p> I love learning new languages (i.e Chinese and French), sports and travelling around the world (<a href="eldardamari.blogspot.com target="_blank"">My 10 month Travel Blog</a>).-->
-
   <p> Please feel free to contact me at eldardamari @ gmail.com.</p>
-  <p>
   <!-- This line lets the html document know to include emailProtector.js --> 
   <!-- It only needs to be put into each html document once --> 
+  <!--/* EMAIL ENCRYPTION SCRIPT */
+
+  // This script is (c) copyright 2008 by Dan Appleman under the
+  // GNU General Public License (http://www.gnu.org/licenses/gpl.html)
+  // This script is modified from an original script by Jim Tucek
+  // For more information, visit www.danappleman.com 
+  // Leave the above comments alone!
+  // see encryption_instructions.txt for explanation of usage-->
+
+  var decryption_cache = new Array();
+
+  function decrypt_string(crypted_string,n,decryption_key,just_email_address) {
+  var cache_index = "'"+crypted_string+","+just_email_address+"'";
+
+  if(decryption_cache[cache_index])       
+  return decryption_cache[cache_index];
+
+  if(addresses[crypted_string])           
+  var crypted_string = addresses[crypted_string];         
+
+  if(!crypted_string.length)                  
+  return "Error, not a valid index.";
+
+  if(n == 0 || decryption_key == 0) {         
+  var numbers = crypted_string.split(' ');    
+  n = numbers[0]; decryption_key = numbers[1];            
+  numbers[0] = ""; numbers[1] = "";               
+  crypted_string = numbers.join(" ").substr(2);
+  }
+
+  var decrypted_string = '';
+  var crypted_characters = crypted_string.split(' ');
+
+  for(var i in crypted_characters) {
+  var current_character = crypted_characters[i];
+  var decrypted_character = exponentialModulo(current_character,n,decryption_key);
+  if(just_email_address && i < 7)
+  continue;
+  if(just_email_address && decrypted_character == 63)
+  break;
+  decrypted_string += String.fromCharCode(decrypted_character);
+  }
+  decryption_cache[cache_index] = decrypted_string;           
+
+  return decrypted_string;
+  }
+
+  function decrypt_and_email(crypted_string,n,decryption_key) {
+  if(!n || !decryption_key) { n = 0; decryption_key = 0; }
+  if(!crypted_string) crypted_string = 0;
+
+  var decrypted_string = decrypt_string(crypted_string,n,decryption_key,false);
+  parent.location = decrypted_string;
+  }
+
+  function decrypt_and_echo(crypted_string,n,decryption_key) {
+  if(!n || !decryption_key) { n = 0; decryption_key = 0; }
+  if(!crypted_string) crypted_string = 0;
+
+  var decrypted_string = decrypt_string(crypted_string,n,decryption_key,true);
+  document.write(decrypted_string);
+  return true;
+  }
+
+  // Finds base^exponent % y for large values of (base^exponent)
+  function exponentialModulo(base,exponent,y) {
+  if (y % 2 == 0) {
+  answer = 1;
+  for(var i = 1; i <= y/2; i++) {
+  temp = (base*base) % exponent;
+  answer = (temp*answer) % exponent;
+  }
+  } else {
+  answer = base;
+  for(var i = 1; i <= y/2; i++) {
+  temp = (base*base) % exponent;
+  answer = (temp*answer) % exponent;
+  }
+  }
+  return answer;
+  }
+
   <script language=javascript src=emailProtector.js></script> 
 
 
@@ -57,7 +137,6 @@ layout: base
   Email the second person in the list: <a href=javascript:decrypt_and_email(1)><script>decrypt_and_echo(1)</script></a><br>
 
   Email the third person in the list: <a href=javascript:decrypt_and_email(2)><script>decrypt_and_echo(2)</script></a><br>
-  </p>
 
   <p> Follow me at:
     <li><a href="http://github.com/eldardamari" target="_blank">GitHub</a></li>
